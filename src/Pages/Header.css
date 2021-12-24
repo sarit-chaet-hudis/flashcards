@@ -1,3 +1,7 @@
 .Header {
   display: flex;
 }
+
+.Header > div {
+  margin: 10px;
+}

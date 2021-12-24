@@ -6,11 +6,19 @@ class Header extends React.Component {
   render() {
     return (
       <div className="Header">
-        <Link to="/">Home</Link>
-        <br />
-        <Link to="/train">Train</Link>
-        <br />
-        <Link to="/manage">Manage Cards</Link>
+        <div>
+          <Link to="/">Home</Link>
+        </div>
+
+        <div>
+          {" "}
+          <Link to="/train">Train</Link>
+        </div>
+
+        <div>
+          {" "}
+          <Link to="/manage">Manage Cards</Link>
+        </div>
       </div>
     );
   }

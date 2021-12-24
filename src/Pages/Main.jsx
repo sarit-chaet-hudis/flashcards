@@ -7,28 +7,56 @@ import Manage from "./Manage";
 
 class Main extends React.Component {
   state = {
-    cards: [
-      { id: "0", question: "Why is you geh", answer: "born this way" },
-      { id: "1", question: "Is you father all..", answer: "Naked." },
-      { id: "2", question: "Why is 6 afraid of 7", answer: "because 7 8 9" },
-    ],
+    cards: [],
   };
 
   updateCard(updatedCard) {
     // updatedCard is an object conatining original id
   }
 
-  getNewCardId() {
+  getNewCardId = () => {
     // returns new Id for new card
-  }
+    return Date.now();
+  };
 
-  createCard(newCard) {
+  addCard = (e, question, answer) => {
     // newCard is a card object,
     // will be given a new id here and added to cards
-  }
+    e.preventDefault();
+    const id = Date.now();
+    const newCard = {
+      id: id,
+      question: question,
+      answer: answer,
+    };
+    console.log(this.state.cards);
+    const updatedCards = [...this.state.cards, newCard];
+    this.updateLocalStorage(updatedCards);
+    this.loadFromLocalStorage();
+  };
 
   loadFromLocalStorage() {
-    // Check if local storage exists? and load
+    // Check if local storage has cards and load into state
+    const data = localStorage.getItem("cards");
+    if (data) {
+      try {
+        const parsedData = JSON.parse(data);
+        this.setState({ cards: parsedData });
+        console.log("load finished");
+      } catch (err) {
+        console.log(err);
+        console.log("Invalid Data: " + data);
+        localStorage.removeItem("cards");
+      }
+    }
+  }
+
+  updateLocalStorage(data) {
+    localStorage.setItem("cards", JSON.stringify(data));
+  }
+
+  componentDidMount() {
+    this.loadFromLocalStorage();
   }
 
   render() {
@@ -42,7 +70,7 @@ class Main extends React.Component {
               <Train cards={this.state.cards} />
             </Route>
             <Route path="/manage">
-              <Manage cards={this.state.cards} />
+              <Manage cards={this.state.cards} addCard={this.addCard} />
             </Route>
           </>
         </BrowserRouter>
