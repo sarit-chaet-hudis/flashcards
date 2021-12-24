@@ -29,7 +29,6 @@ class Main extends React.Component {
       question: question,
       answer: answer,
     };
-    console.log(this.state.cards);
     const updatedCards = [...this.state.cards, newCard];
     this.updateLocalStorage(updatedCards);
     this.loadFromLocalStorage();
@@ -42,7 +41,6 @@ class Main extends React.Component {
       try {
         const parsedData = JSON.parse(data);
         this.setState({ cards: parsedData });
-        console.log("load finished");
       } catch (err) {
         console.log(err);
         console.log("Invalid Data: " + data);

@@ -35,9 +35,10 @@ class Manage extends React.Component {
             ></input>
             <button
               type="Submit"
-              onClick={(e) =>
-                this.props.addCard(e, this.state.question, this.state.answer)
-              }
+              onClick={(e) => {
+                this.props.addCard(e, this.state.question, this.state.answer);
+                this.setState({ question: "", answer: "" });
+              }}
             >
               Add Card
             </button>
