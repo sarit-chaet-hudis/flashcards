@@ -1,5 +1,3 @@
-// export default Button = () => {
-//     return (
-//         <button>{this.props.buttonText}</button>
-//     )
-// }
+export default function Button() {
+  return <button onClick={this.props.onClick}>{this.props.buttonText}</button>;
+}
