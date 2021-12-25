@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import Button from "../Utils/Button";
 
 class Train extends React.Component {
-  state = { currentCard: 0, haveCards: false };
+  state = { sessionCards: [], currentCard: 0, haveCards: false };
 
   componentDidMount() {
     if (this.props.cards.length > 0) {
       console.log("have cards");
+      this.setState({ sessionCards: this.props.cards });
       this.setState({ haveCards: true });
     } else {
       this.setState({ haveCards: false });
@@ -18,7 +19,7 @@ class Train extends React.Component {
   }
 
   nextCard() {
-    if (this.state.currentCard + 1 === this.state.cards.length) {
+    if (this.state.currentCard + 1 === this.state.sessionCards.length) {
       this.setState({ haveCards: false });
     } else {
       this.setState((prev) => {
@@ -31,10 +32,15 @@ class Train extends React.Component {
     if (this.state.haveCards) {
       return (
         <>
-          <DisplayCard card={this.props.cards[this.state.currentCard]} />
+          <DisplayCard card={this.state.sessionCards[this.state.currentCard]} />
           <Progress />
           {/* <Button onClick={this.nextCard} buttonText="Next" /> */}
-          <button onClick={this.nextCard}>Next</button>
+          <button
+            onClick={() => this.nextCard()}
+            disabled={!this.state.haveCards}
+          >
+            Next
+          </button>
         </>
       );
     } else {
