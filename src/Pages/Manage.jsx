@@ -29,22 +29,29 @@ class Manage extends React.Component {
           />
           <div className="newCardForm">
             <form>
+              <h2>Add new Card</h2>
+              <label htmlFor="question">Question: </label>
+              <br />
               <input
                 onChange={(e) => this.handleInputChange(e)}
-                label="Question:"
                 type="text"
                 maxLength="30"
                 name="question"
+                id="question"
                 value={this.state.question}
               ></input>
+              <br />
+              <label htmlFor="answer">Answer: </label>
+              <br />
               <input
                 onChange={(e) => this.handleInputChange(e)}
-                label="Answer:"
                 type="text"
                 maxLength="30"
                 name="answer"
+                id="answer"
                 value={this.state.answer}
               ></input>
+              <br />
               <button
                 type="Submit"
                 onClick={(e) => {

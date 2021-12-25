@@ -33,7 +33,7 @@ class CardList extends React.Component {
   render() {
     return (
       <div>
-        <h2>Card List:</h2>
+        <h2>Card List</h2>
         <table className="cardsTable">
           <tbody>
             <tr>
