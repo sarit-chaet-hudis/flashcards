@@ -19,7 +19,7 @@ class CardList extends React.Component {
   render() {
     return (
       <>
-        <h1>Card List:</h1>
+        <h2>Card List:</h2>
         <table className="cardsTable">
           <tbody>
             <tr>

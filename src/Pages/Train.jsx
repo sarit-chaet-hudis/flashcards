@@ -3,19 +3,42 @@ import DisplayCard from "../Components/DisplayCard";
 import Progress from "../Components/Progress";
 import "./Train.css";
 import { Link } from "react-router-dom";
-import Button from "../Utils/Button";
 
 class Train extends React.Component {
   state = { sessionCards: [], currentCard: 0, haveCards: false };
 
   componentDidMount() {
-    console.log(`this.props.cards.length is ${this.props.cards.length}`);
-    console.log(`this.currentCard is ${this.state.currentCard}`);
-    if (this.props.cards.length > 0) {
-      this.setState({ sessionCards: this.props.cards });
-      this.setState({ haveCards: true });
-    } else {
-      this.setState({ haveCards: false });
+    this.loadFromSessionStorage();
+
+    if (this.state.sessionCards.length === 0) {
+      if (this.props.cards.length > 0) {
+        //    If props have cards => write to sessionstorage => load to state
+        this.updateSessionStorage(this.props.cards);
+        this.loadFromSessionStorage();
+      } else {
+        // if both dont have, state will remain []
+        // this.setState({ haveCards: false });
+      }
+    }
+  }
+
+  updateSessionStorage(data) {
+    sessionStorage.setItem("sessioncards", JSON.stringify(data));
+  }
+
+  loadFromSessionStorage() {
+    // Check if session storage has cards and load into state
+    const data = sessionStorage.getItem("sessioncards");
+    if (data) {
+      try {
+        const parsedData = JSON.parse(data);
+        this.setState({ sessionCards: parsedData, haveCards: true });
+        // TODO check if there's a risk of data being in storage but length = 0 ?
+      } catch (err) {
+        console.log(err);
+        console.log("Invalid Data: " + data);
+        localStorage.removeItem("sessioncards");
+      }
     }
   }
 
@@ -29,6 +52,11 @@ class Train extends React.Component {
     }
   }
 
+  trainAgain() {
+    // on new training session > get cards from prop =>
+    //  to session storage => to state
+  }
+
   renderCard() {
     if (this.state.haveCards) {
       return (
@@ -38,7 +66,7 @@ class Train extends React.Component {
             length={this.state.sessionCards.length}
             current={this.state.currentCard + 1}
           />
-          {/* <Button onClick={this.nextCard} buttonText="Next" /> */}
+
           <button
             onClick={() => this.nextCard()}
             disabled={!this.state.haveCards}

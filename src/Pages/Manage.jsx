@@ -6,6 +6,7 @@ class Manage extends React.Component {
   state = {
     question: "",
     answer: "",
+    selectedCardId: undefined,
   };
 
   handleInputChange = (e) => {
@@ -15,6 +16,7 @@ class Manage extends React.Component {
   render() {
     return (
       <div className="Manage">
+        <h1>Edit, Add or Delete Cards</h1>
         <CardList cards={this.props.cards} />
         <div className="newCardForm">
           <form>

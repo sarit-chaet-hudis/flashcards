@@ -14,11 +14,6 @@ class Main extends React.Component {
     // updatedCard is an object conatining original id
   }
 
-  getNewCardId = () => {
-    // returns new Id for new card
-    return Date.now();
-  };
-
   addCard = (e, question, answer) => {
     // newCard is a card object,
     // will be given a new id here and added to cards

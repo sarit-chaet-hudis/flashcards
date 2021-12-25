@@ -9,7 +9,6 @@ class Progress extends React.Component {
   }
 
   render() {
-    console.log(`{this.props.current} is ${this.props.current}`);
     return (
       <div className="Progress">
         {this.props.current} / {this.props.length}
