@@ -51,9 +51,22 @@ class Train extends React.Component {
     if (this.state.currentCard + 1 === this.state.sessionCards.length) {
       this.setState({ haveCards: false });
     } else {
-      this.setState((prev) => {
-        return { currentCard: prev.currentCard + 1, toggleFlip: false };
-      });
+      if (this.state.toggleFlip) {
+        // immediately flip to hide answer,
+        // move to next card only after flip animation ends.
+        this.setState({ toggleFlip: false }, () =>
+          setTimeout(() => {
+            this.setState((prev) => {
+              return { currentCard: prev.currentCard + 1 };
+            });
+          }, 500)
+        );
+      } else {
+        // card is showing its front, immedieately move to next card
+        this.setState((prev) => {
+          return { currentCard: prev.currentCard + 1 };
+        });
+      }
     }
   }
 

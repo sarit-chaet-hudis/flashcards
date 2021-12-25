@@ -5,11 +5,10 @@
   max-width: 1200px;
   height: 60vmin;
   max-height: 800px;
-
   perspective: 1000px;
 }
 
-/* This container is needed to position the front and back side */
+/* This container is to position the front and back side */
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -19,8 +18,7 @@
   transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flipIt .flip-card,
+/* flipIt is a toggle class, toggled by button */
 .flipIt .flip-card-inner {
   transform: rotateY(180deg);
 }
