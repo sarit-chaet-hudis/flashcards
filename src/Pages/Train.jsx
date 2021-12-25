@@ -15,8 +15,13 @@ class Train extends React.Component {
   componentDidMount() {
     // load cards
     this.loadFromSessionStorage();
-
+    // TODO this func ends in passing storage to state which can take awhile,
+    // in the meantime it seems that state.sessioncards is empty! when its not.
     if (this.state.sessionCards.length === 0) {
+      // didn't find sessioncards in state, reset currentCardIndex
+      this.updateCurrentCardIndex(0);
+      this.loadCurrentCardIndex();
+
       if (this.props.cards.length > 0) {
         //    If props have cards => write to sessionstorage => load to state
         this.updateSessionStorage(this.props.cards);
@@ -73,7 +78,7 @@ class Train extends React.Component {
   }
 
   nextCard() {
-    // Advances the current card index by 1 (both in state and in session storage)
+    // Advances the current card index by 1 (in session storage, then in state)
     // Resets flip to be front-showing.
     // If reaches the end, changes state of "haveCards" to false
     if (this.state.currentCard + 1 === this.state.sessionCards.length) {
@@ -102,9 +107,17 @@ class Train extends React.Component {
     this.setState({ toggleFlip: !current });
   }
 
+  repeatCard = () => {
+    // Create copy of current card and add it to the end of session cards, to practice it again
+    const curCard = this.state.sessionCards[this.state.currentCard];
+    const tempCards = [...this.state.sessionCards, curCard];
+    this.updateSessionStorage(tempCards);
+    this.loadFromSessionStorage();
+    this.nextCard();
+  };
+
   trainAgain = () => {
-    // TODO Shuffle cards
-    this.updateSessionStorage(this.shuffleCards(this.state.sessionCards));
+    this.updateSessionStorage(this.shuffleCards(this.props.cards));
     this.loadFromSessionStorage();
     this.updateCurrentCardIndex(0);
     this.loadCurrentCardIndex();
@@ -123,7 +136,6 @@ class Train extends React.Component {
       array[i] = temp;
       m--;
     }
-    console.log(`array after shuffle : ${array}`);
     return array;
   };
 
@@ -140,9 +152,13 @@ class Train extends React.Component {
             current={this.state.currentCard + 1}
           />
 
-          <button onClick={() => this.toggleFlip()}>Flip Card </button>
+          <button onClick={() => this.toggleFlip()}>Show Answer</button>
           <br />
-          <button onClick={() => this.nextCard()}>Next </button>
+          <div className={!this.state.toggleFlip ? "hide" : undefined}>
+            <h3>Did you get it right?</h3>
+            <button onClick={() => this.nextCard()}>Yes</button>
+            <button onClick={() => this.repeatCard()}>No</button>
+          </div>
         </>
       );
     } else {
