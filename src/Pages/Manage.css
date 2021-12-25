@@ -2,8 +2,13 @@
   padding: 10px 20px;
   width: 80vw;
   margin: auto;
+  display: flex;
 }
 
-.Manage h1 {
+h1 {
   text-align: center;
+}
+
+.Manage h2 {
+  margin: 0;
 }

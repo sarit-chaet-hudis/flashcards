@@ -1,7 +1,7 @@
 # Flashcards app using react by sarit chaet hudis
 
 Flashcards can be added, deleted, edited and are saved in local storage.
-Train on the cards randomly. For each card if you guessed it, it will be removed from current training session.
+Train on the cards randomly (//TODO). For each card if you guessed it, it will be removed from current training session.
 Training session is saved in sessionStorage to keep training info across page refresh or moving between different pages in app.
 
 ## Components Diagram

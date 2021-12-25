@@ -10,6 +10,20 @@ class CardList extends React.Component {
           <tr key={card.id} className="cardInList">
             <td>{card.question}</td>
             <td>{card.answer}</td>
+            <td>
+              <i
+                className="fas fa-edit"
+                style={{ color: "dodgerblue" }}
+                onClick={() => this.props.updateForm(card.id)}
+              ></i>
+            </td>
+            <td>
+              <i
+                className="fas fa-trash-alt"
+                style={{ color: "red" }}
+                onClick={() => this.props.deleteCard(card.id)}
+              ></i>
+            </td>
           </tr>
         );
       });
@@ -18,7 +32,7 @@ class CardList extends React.Component {
 
   render() {
     return (
-      <>
+      <div>
         <h2>Card List:</h2>
         <table className="cardsTable">
           <tbody>
@@ -29,7 +43,7 @@ class CardList extends React.Component {
             {this.renderList()}
           </tbody>
         </table>
-      </>
+      </div>
     );
   }
 }

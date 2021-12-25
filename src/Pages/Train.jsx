@@ -67,12 +67,7 @@ class Train extends React.Component {
             current={this.state.currentCard + 1}
           />
 
-          <button
-            onClick={() => this.nextCard()}
-            disabled={!this.state.haveCards}
-          >
-            Next
-          </button>
+          <button onClick={() => this.nextCard()}>Next </button>
         </>
       );
     } else {

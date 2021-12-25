@@ -13,41 +13,51 @@ class Manage extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  updateForm(id) {
+    // show form with card id's content
+    // after click, update card on Main
+  }
+
   render() {
     return (
-      <div className="Manage">
+      <>
         <h1>Edit, Add or Delete Cards</h1>
-        <CardList cards={this.props.cards} />
-        <div className="newCardForm">
-          <form>
-            <input
-              onChange={(e) => this.handleInputChange(e)}
-              label="Question:"
-              type="text"
-              maxLength="30"
-              name="question"
-              value={this.state.question}
-            ></input>
-            <input
-              onChange={(e) => this.handleInputChange(e)}
-              label="Answer:"
-              type="text"
-              maxLength="30"
-              name="answer"
-              value={this.state.answer}
-            ></input>
-            <button
-              type="Submit"
-              onClick={(e) => {
-                this.props.addCard(e, this.state.question, this.state.answer);
-                this.setState({ question: "", answer: "" });
-              }}
-            >
-              Add Card
-            </button>
-          </form>
+        <div className="Manage">
+          <CardList
+            cards={this.props.cards}
+            deleteCard={this.props.deleteCard}
+          />
+          <div className="newCardForm">
+            <form>
+              <input
+                onChange={(e) => this.handleInputChange(e)}
+                label="Question:"
+                type="text"
+                maxLength="30"
+                name="question"
+                value={this.state.question}
+              ></input>
+              <input
+                onChange={(e) => this.handleInputChange(e)}
+                label="Answer:"
+                type="text"
+                maxLength="30"
+                name="answer"
+                value={this.state.answer}
+              ></input>
+              <button
+                type="Submit"
+                onClick={(e) => {
+                  this.props.addCard(e, this.state.question, this.state.answer);
+                  this.setState({ question: "", answer: "" });
+                }}
+              >
+                Add Card
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }

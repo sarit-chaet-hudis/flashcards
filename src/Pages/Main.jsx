@@ -12,6 +12,9 @@ class Main extends React.Component {
 
   updateCard(updatedCard) {
     // updatedCard is an object conatining original id
+    const updatedCards = [...this.state.cards, updatedCard];
+    this.updateLocalStorage(updatedCards);
+    this.loadFromLocalStorage();
   }
 
   addCard = (e, question, answer) => {
@@ -25,6 +28,16 @@ class Main extends React.Component {
       answer: answer,
     };
     const updatedCards = [...this.state.cards, newCard];
+    this.updateLocalStorage(updatedCards);
+    this.loadFromLocalStorage();
+  };
+
+  deleteCard = (id) => {
+    const updatedCards = [...this.state.cards];
+    updatedCards.splice(
+      updatedCards.findIndex((card) => card.id === id),
+      1
+    );
     this.updateLocalStorage(updatedCards);
     this.loadFromLocalStorage();
   };
@@ -63,7 +76,12 @@ class Main extends React.Component {
               <Train cards={this.state.cards} />
             </Route>
             <Route path="/manage">
-              <Manage cards={this.state.cards} addCard={this.addCard} />
+              <Manage
+                cards={this.state.cards}
+                addCard={this.addCard}
+                deleteCard={this.deleteCard}
+                updateCard={this.updateCard}
+              />
             </Route>
           </>
         </BrowserRouter>
