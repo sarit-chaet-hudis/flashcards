@@ -9,8 +9,9 @@ class Train extends React.Component {
   state = { sessionCards: [], currentCard: 0, haveCards: false };
 
   componentDidMount() {
+    console.log(`this.props.cards.length is ${this.props.cards.length}`);
+    console.log(`this.currentCard is ${this.state.currentCard}`);
     if (this.props.cards.length > 0) {
-      console.log("have cards");
       this.setState({ sessionCards: this.props.cards });
       this.setState({ haveCards: true });
     } else {
@@ -33,7 +34,10 @@ class Train extends React.Component {
       return (
         <>
           <DisplayCard card={this.state.sessionCards[this.state.currentCard]} />
-          <Progress />
+          <Progress
+            length={this.state.sessionCards.length}
+            current={this.state.currentCard + 1}
+          />
           {/* <Button onClick={this.nextCard} buttonText="Next" /> */}
           <button
             onClick={() => this.nextCard()}
