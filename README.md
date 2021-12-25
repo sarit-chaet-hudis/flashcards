@@ -1,12 +1,15 @@
 # Flashcards app using react by sarit chaet hudis
 
 Flashcards can be added, deleted, edited and are saved in local storage.
-Train on the cards randomly. If the user says he got a card wrong, it will be added to the end of the deck to practice again.
+You can train on the cards randomly.
+If the user says he got a card wrong, it will be added to the end of the deck to practice again.
 Training session is saved in sessionStorage to keep training info across page refresh or moving between different pages in app.
+
+## Live version: https://flashcards-sarit-chaet-hudis.netlify.app/
 
 ## Components Diagram
 
-// TODO add
+[!components](https://github.com/sarit-chaet-hudis/flashcards/blob/main/src/Assets/flashcards-diagram.png)
 
 Note: All components are class components for the sake of practice.
 
