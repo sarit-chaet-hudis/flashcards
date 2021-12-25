@@ -1,7 +1,7 @@
 # Flashcards app using react by sarit chaet hudis
 
 Flashcards can be added, deleted, edited and are saved in local storage.
-Train on the cards randomly (//TODO). For each card if you guessed it, it will be removed from current training session.
+Train on the cards randomly. If the user says he got a card wrong, it will be added to the end of the deck to practice again.
 Training session is saved in sessionStorage to keep training info across page refresh or moving between different pages in app.
 
 ## Components Diagram
@@ -12,4 +12,6 @@ Note: All components are class components for the sake of practice.
 
 ### Known issues and Todos
 
-- If refresh is made on the train page while current card is the last one, it presents the last card again instead of showing the "no cards to show" screen.
+- Switch training logic so that if user was right, card is removed from session deck. Progress bar should be updated as well.
+- Design!!!
+- Option to edit cards
