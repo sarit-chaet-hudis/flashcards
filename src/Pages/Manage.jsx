@@ -1,5 +1,6 @@
 import React from "react";
 import CardList from "../Components/CardList";
+import "./Manage.css";
 
 class Manage extends React.Component {
   state = {
@@ -13,7 +14,7 @@ class Manage extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="Manage">
         <CardList cards={this.props.cards} />
         <div className="newCardForm">
           <form>
@@ -44,7 +45,7 @@ class Manage extends React.Component {
             </button>
           </form>
         </div>
-      </>
+      </div>
     );
   }
 }
