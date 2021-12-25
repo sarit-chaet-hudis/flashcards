@@ -73,6 +73,9 @@ class Train extends React.Component {
   }
 
   nextCard() {
+    // Advances the current card index by 1 (both in state and in session storage)
+    // Resets flip to be front-showing.
+    // If reaches the end, changes state of "haveCards" to false
     if (this.state.currentCard + 1 === this.state.sessionCards.length) {
       this.setState({ haveCards: false });
     } else {
@@ -101,10 +104,27 @@ class Train extends React.Component {
 
   trainAgain = () => {
     // TODO Shuffle cards
-
+    this.updateSessionStorage(this.shuffleCards(this.state.sessionCards));
+    this.loadFromSessionStorage();
     this.updateCurrentCardIndex(0);
     this.loadCurrentCardIndex();
     this.setState({ haveCards: true, toggleFlip: false });
+  };
+
+  shuffleCards = (array) => {
+    let m = array.length - 1;
+    let temp, i;
+    while (m) {
+      //there are still elements to suffle
+      i = Math.floor(Math.random() * m);
+      // gets remaining element and swaps it with current element
+      temp = array[m];
+      array[m] = array[i];
+      array[i] = temp;
+      m--;
+    }
+    console.log(`array after shuffle : ${array}`);
+    return array;
   };
 
   renderCard() {
