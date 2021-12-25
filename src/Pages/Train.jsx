@@ -5,7 +5,12 @@ import "./Train.css";
 import { Link } from "react-router-dom";
 
 class Train extends React.Component {
-  state = { sessionCards: [], currentCard: 0, haveCards: false };
+  state = {
+    sessionCards: [],
+    currentCard: 0,
+    haveCards: false,
+    toggleFlip: false,
+  };
 
   componentDidMount() {
     this.loadFromSessionStorage();
@@ -47,9 +52,17 @@ class Train extends React.Component {
       this.setState({ haveCards: false });
     } else {
       this.setState((prev) => {
-        return { currentCard: prev.currentCard + 1 };
+        return { currentCard: prev.currentCard + 1, toggleFlip: false };
       });
     }
+  }
+
+  toggleFlip() {
+    const current = this.state.toggleFlip;
+    this.setState(
+      { toggleFlip: !current },
+      console.log(`toggle is now ${this.state.toggleFlip}`)
+    );
   }
 
   trainAgain() {
@@ -61,12 +74,17 @@ class Train extends React.Component {
     if (this.state.haveCards) {
       return (
         <>
-          <DisplayCard card={this.state.sessionCards[this.state.currentCard]} />
+          <DisplayCard
+            card={this.state.sessionCards[this.state.currentCard]}
+            toggleFlip={this.state.toggleFlip}
+          />
           <Progress
             length={this.state.sessionCards.length}
             current={this.state.currentCard + 1}
           />
 
+          <button onClick={() => this.toggleFlip()}>Flip Card </button>
+          <br />
           <button onClick={() => this.nextCard()}>Next </button>
         </>
       );

@@ -4,7 +4,9 @@ import "./DisplayCard.css";
 class DisplayCard extends React.Component {
   render() {
     return (
-      <div className="flip-card DisplayCard">
+      <div
+        className={this.props.toggleFlip ? "DisplayCard flipIt" : "DisplayCard"}
+      >
         <div className="flip-card-inner">
           <div className="flip-card-front center">
             {this.props.card.question}
