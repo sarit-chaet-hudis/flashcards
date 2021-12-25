@@ -9,7 +9,7 @@ Training session is saved in sessionStorage to keep training info across page re
 
 ## Components Diagram
 
-[!components](https://github.com/sarit-chaet-hudis/flashcards/blob/main/src/Assets/flashcards-diagram.png)
+![components structure](https://github.com/sarit-chaet-hudis/flashcards/blob/main/src/Assets/flashcards-diagram.png)
 
 Note: All components are class components for the sake of practice.
 
