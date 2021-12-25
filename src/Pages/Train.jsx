@@ -13,6 +13,7 @@ class Train extends React.Component {
   };
 
   componentDidMount() {
+    // load cards
     this.loadFromSessionStorage();
 
     if (this.state.sessionCards.length === 0) {
@@ -20,14 +21,38 @@ class Train extends React.Component {
         //    If props have cards => write to sessionstorage => load to state
         this.updateSessionStorage(this.props.cards);
         this.loadFromSessionStorage();
-      } else {
-        // if both dont have, state will remain []
-        // this.setState({ haveCards: false });
       }
+      // If both don't have cards, cards session will remain []
+    }
+
+    // Load current card index if exists on session storage, else remains 0
+    this.loadCurrentCardIndex();
+  }
+
+  loadCurrentCardIndex() {
+    // Gets current card index from session storage and updates it in state
+    const cur = sessionStorage.getItem("currentCard");
+    if (cur) {
+      try {
+        const parsedCurrent = JSON.parse(cur);
+        this.setState({ currentCard: parsedCurrent });
+      } catch (err) {
+        console.log(err);
+        console.log("Invalid Data: " + cur);
+        localStorage.removeItem("currentCard");
+      }
+    } else {
+      this.updateCurrentCardIndex(this.state.currentCard);
     }
   }
 
+  updateCurrentCardIndex(cur) {
+    // saves cur index as session storage current card index
+    sessionStorage.setItem("currentCard", JSON.stringify(cur));
+  }
+
   updateSessionStorage(data) {
+    // saves card data (param) into session storage cards
     sessionStorage.setItem("sessioncards", JSON.stringify(data));
   }
 
@@ -54,34 +79,33 @@ class Train extends React.Component {
       if (this.state.toggleFlip) {
         // immediately flip to hide answer,
         // move to next card only after flip animation ends.
+
         this.setState({ toggleFlip: false }, () =>
           setTimeout(() => {
-            this.setState((prev) => {
-              return { currentCard: prev.currentCard + 1 };
-            });
+            this.updateCurrentCardIndex(this.state.currentCard + 1);
+            this.loadCurrentCardIndex();
           }, 500)
         );
       } else {
         // card is showing its front, immedieately move to next card
-        this.setState((prev) => {
-          return { currentCard: prev.currentCard + 1 };
-        });
+        this.updateCurrentCardIndex(this.state.currentCard + 1);
+        this.loadCurrentCardIndex();
       }
     }
   }
 
   toggleFlip() {
     const current = this.state.toggleFlip;
-    this.setState(
-      { toggleFlip: !current },
-      console.log(`toggle is now ${this.state.toggleFlip}`)
-    );
+    this.setState({ toggleFlip: !current });
   }
 
-  trainAgain() {
-    // on new training session > get cards from prop =>
-    //  to session storage => to state
-  }
+  trainAgain = () => {
+    // TODO Shuffle cards
+
+    this.updateCurrentCardIndex(0);
+    this.loadCurrentCardIndex();
+    this.setState({ haveCards: true, toggleFlip: false });
+  };
 
   renderCard() {
     if (this.state.haveCards) {
@@ -105,6 +129,8 @@ class Train extends React.Component {
       return (
         <div>
           <h2>No Cards to show.</h2>
+          <button onClick={this.trainAgain}>Train Again</button>
+          <br />
           <div>
             You can add cards on the <Link to="/manage">Manage Cards</Link>{" "}
             page.

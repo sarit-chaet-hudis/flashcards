@@ -12,5 +12,4 @@ Note: All components are class components for the sake of practice.
 
 ### Known issues and Todos
 
-- If refresh is made on the train page, cards are not shown probably because local storage hasn't had the time to load.
-  // TODO create loading buffer
+- If refresh is made on the train page while current card is the last one, it presents the last card again instead of showing the "no cards to show" screen.
