@@ -5,18 +5,21 @@ import "./Train.css";
 import { Link } from "react-router-dom";
 
 class Train extends React.Component {
-  state = {
-    sessionCards: [],
-    currentCard: 0,
-    haveCards: false,
-    toggleFlip: false,
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = {
+      sessionCards: [],
+      currentCard: 0,
+      haveCards: false,
+      toggleFlip: false,
+    };
+  }
+
+  async componentDidMount() {
     // load cards
-    this.loadFromSessionStorage();
-    // TODO this func ends in passing storage to state which can take awhile,
-    // in the meantime it seems that state.sessioncards is empty! when its not.
+    await this.loadFromSessionStorage();
+
     if (this.state.sessionCards.length === 0) {
       // didn't find sessioncards in state, reset currentCardIndex
       this.updateCurrentCardIndex(0);
@@ -61,7 +64,7 @@ class Train extends React.Component {
     sessionStorage.setItem("sessioncards", JSON.stringify(data));
   }
 
-  loadFromSessionStorage() {
+  async loadFromSessionStorage() {
     // Check if session storage has cards and load into state
     const data = sessionStorage.getItem("sessioncards");
     if (data) {
